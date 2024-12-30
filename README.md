@@ -20,15 +20,15 @@ Currently, two official plugins are available:
   <p> create file .env and copy .env.example to .env
 
 - Npm Run Build
- <p> Build All Package
+ <p> Build All Package:
    
  ```bash
       npm run build
   ```
 
 - Npm Run Dev
- <p> Start React Project
+ <p> Start React Project:
    
-    ```bash
+  ```bash
       npm run dev
-    ```
+  ```
