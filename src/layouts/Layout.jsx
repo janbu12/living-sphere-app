@@ -37,7 +37,7 @@ export default function Layout({children}) {
           case '/about':
               return 'About Us';
           default:
-              return 'Dashboard';
+              return null;
       }
   };
 
@@ -187,13 +187,18 @@ export default function Layout({children}) {
           </DisclosurePanel>
         </Disclosure>
 
-        <header className="bg-white shadow">
-          <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-            <h1 className="text-3xl font-bold tracking-tight text-gray-900">{getTitle()}</h1>
-          </div>
-        </header>
+        {getTitle() == null ? (
+            <div></div>
+          ) : (
+            <header className="bg-white shadow">
+              <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+                <h1 className="text-3xl font-bold tracking-tight text-gray-900">{getTitle()}</h1>
+              </div>
+            </header>
+          )
+        }
         <main>
-          <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">{children}</div>
+          <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">{children}</div>
         </main>
       </div>
     </>
