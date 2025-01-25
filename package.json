@@ -13,13 +13,16 @@
     "@googlemaps/markerclusterer": "^2.5.1",
     "@headlessui/react": "^2.2.0",
     "@heroicons/react": "^2.2.0",
+    "@react-google-maps/api": "^2.20.5",
     "@vis.gl/react-google-maps": "latest",
+    "axios": "^1.7.9",
     "dotenv": "^16.4.7",
     "react": "^18.3.1",
     "react-aria-components": "^1.5.0",
     "react-autocomplete": "^1.8.1",
     "react-dom": "^18.3.1",
     "react-error-overlay": "6.0.9",
+    "react-google-places-autocomplete": "^4.1.0",
     "react-router-dom": "^7.1.1"
   },
   "devDependencies": {

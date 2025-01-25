@@ -9,6 +9,10 @@ import Question1 from "./pages/question1";
 import Question2 from "./pages/question2";
 import Question3 from "./pages/question3";
 import MapTest from "./pages/maptest"
+import Confirmation from "./pages/confirmation"
+import DistanceTest from "./pages/distancetest"
+import Results from "./pages/results"
+import NoPropertiesFound from "./pages/nopropertiesfound"
 
 export default function App() {
   return (
@@ -21,6 +25,10 @@ export default function App() {
           <Route path="question2" element={ <Question2 />} />
           <Route path="question3" element={ <Question3 />} />
           <Route path="maptest" element={ <MapTest />} />
+          <Route path="confirmation" element={ <Confirmation />} />
+          <Route path="distancetest" element={ <DistanceTest />} />
+          <Route path="results" element={ <Results />} />
+          <Route path="nopropertiesfound" element={ <NoPropertiesFound />} />
         </Route>
           <Route path="*" element={<Error />} />
         </Routes>
