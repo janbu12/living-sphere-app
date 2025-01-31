@@ -1,11 +1,19 @@
 // import { React, useEffect } from "react";
 import { React, useState, useEffect } from "react";
 import { useLocation, Outlet, useNavigate } from "react-router-dom";
+import { Map, Marker, GoogleApiWrapper } from "google-maps-react";
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
-import { APIProvider, Map } from '@vis.gl/react-google-maps';
+import { APIProvider } from '@vis.gl/react-google-maps';
 
 function Question3() {
     const location = useLocation();
+
+    // const {isLoaded} = useJsApiLoader({
+    //     id: 'google-map-script',
+    //     googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY as string,
+    //     libraries: ["places"]
+    // });
+
     const [locationValue1, setLocationValue1] = useState(null);
     const [locationValue2, setLocationValue2] = useState(null);
     const [locationValue3, setLocationValue3] = useState(null);
