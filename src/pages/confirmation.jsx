@@ -16,6 +16,12 @@ function Confirmation() {
         // nextButtonDisabled = locationValue1 === null ? true : false;
     });
 
+    const goToHome = (e) => {
+        e.preventDefault();
+        navigate("/", {state: {
+        }})
+    }
+
     const cleanseName = (c_name) => {
         const dotproperty_translation = [
             ["Jawa Barat", "west-java"],
@@ -114,42 +120,37 @@ function Confirmation() {
     }
 
     return(
-        <>
+    <>
+<div className="relative min-h-screen bg-cover bg-center" style={{ backgroundImage: "url('/image/background2.jpg')" }}>
+            <div className="flex items-center space-x-5 pt-5 pl-5">
+                <h3 className="text-4xl text-white font-semibold">CariProperti</h3>
+                <button onClick={goToHome} className="text-l text-white ml-3">Home</button>
+            </div>
+            
+            <hr className="mt-5 mb-5 border-t-2 border-white" />
+            <div className="max-w-3xl mx-auto p-5 bg-black bg-opacity-60 shadow-md rounded-md border">
+            <h1 className="text-white text-center text-xl font-bold mb-4">Konfirmasi parameter</h1>
+    {/* <tr><td colSpan="2"><h2>Adakah tempat atau area tertentu yang anda ingin dekat dengan properti ini?</h2></td></tr> */}
         
-        <h1 className="defCentered">Konfirmasi parameter</h1>
-        
-        <br></br>
-        <form>
-            <table className="defTable">
-                <tbody>
-                    {/* <tr>
-                        <td colSpan="2">
-                            <h2>Adakah tempat atau area tertentu yang anda ingin dekat dengan properti ini?</h2>
-                        </td>
-                    </tr> */}
-                    <tr>
-                        <td>Beli/sewa:</td>
-                        <td>
-                            {location.state.preferensi_jenis}
-                        </td>
-                        <td>jumlah orang</td>
-                        <td>
-                            {location.state.jumlah_orang}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Jangkauan harga:</td>
-                        <td>
-                            Rp. {location.state.jangkauan_harga_min}
-                        </td>
-                        <td>sampai dengan</td>
-                        <td>
-                            Rp. {location.state.jangkauan_harga_max}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colSpan="2">Fitur-fitur:</td>
-                        <td colSpan="2">
+    <table className="w-full border-collapse border border-white">
+        <tbody>
+            <tr className="border-b-2 border-white">
+            <td className="p-3 font-medium text-white  border-white">Beli/sewa:</td>
+            <td className="p-3 text-white  border-white"> {location.state.preferensi_jenis}</td>
+            <td className="p-3 font-medium text-white  border-white">jumlah orang</td>
+            <td className="p-3 text-white  border-white">{location.state.jumlah_orang}</td>
+            </tr>
+
+            <tr className="border-b-2 border-white">
+            <td className="p-3 font-medium text-white  border-white">Jangkauan harga:</td>
+            <td className="p-3 text-white  border-white">Rp. {location.state.jangkauan_harga_min}</td>
+            <td className="p-3 font-medium text-white  border-white">sampai dengan</td>
+            <td className="p-3 text-white  border-white">Rp. {location.state.jangkauan_harga_max}</td>
+            </tr>
+
+            <tr className="border-b-2 border-white">
+            <td className="p-3 font-medium text-white  border-white" colSpan="2">Fitur-fitur:</td>
+            <td className="p-3 text-white  border-white" colSpan="2">
                             {features.map((featurebool, index) => {
                                 if(featurebool === true) {
                                     return(
@@ -157,35 +158,41 @@ function Confirmation() {
                                     );
                                 }
                             })}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colSpan="2">Tempat penting 1:</td>
-                        <td colSpan="2">
+            </td>
+            </tr>
+
+            <tr className="border-b-2 border-white">
+            <td className="p-3 font-medium text-white  border-white" colSpan="2">Tempat penting 1:</td>
+            <td className="p-3 text-white  border-white" colSpan="2">
                             {location.state.tempat_1}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colSpan="2">Tempat penting 2:</td>
-                        <td colSpan="2">
+            </td>
+            </tr>
+
+            <tr className="border-b-2 border-white">
+            <td className="p-3 font-medium text-white  border-white" colSpan="2">Tempat penting 2:</td>
+            <td className="p-3 text-white  border-white" colSpan="2">
                             {location.state.tempat_2 || "tidak ada"}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colSpan="2">Tempat penting 3:</td>
-                        <td colSpan="2">
+            </td>
+            </tr>
+
+            <tr className="border-b-2 border-white">
+            <td className="p-3 font-medium text-white  border-white" colSpan="2">Tempat penting 3:</td>
+            <td className="p-3 text-white  border-white" colSpan="2">
                             {location.state.tempat_3 || "tidak ada"}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colSpan="4">
-                            <button className="defButton" onClick={goToResults} >Dapatkan rekomendasi properti</button>
-                        </td>
-                    </tr>
-                </tbody>
+            </td>
+            </tr>
+            </tbody>
             </table>
-        </form>
+            
+            <div className="text-center mt-6">
+            <button className="bg-white hover:bg-gray-100 text-black font-semibold py-2 px-6 rounded-lg shadow-md" onClick={goToResults}>
+    Dapatkan rekomendasi properti
+</button>
+
+</div>
+            </div>
         <Outlet />
+        </div>
         </>
     );
 }

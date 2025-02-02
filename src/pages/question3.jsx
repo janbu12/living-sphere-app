@@ -26,6 +26,12 @@ function Question3() {
 
     const navigate = useNavigate();
 
+    const goToHome = (e) => {
+        e.preventDefault();
+        navigate("/", {state: {
+        }})
+    }
+
     useEffect(() => {
         setCustomStatusMessage("");
         if(locationValue1 !== null && locationValue2 !== null) {
@@ -91,6 +97,10 @@ function Question3() {
                 return;
             }
         }
+        let l1d = null;
+        let l1c = null;
+        let l1p = null;
+
         let l2l = null;
         let l3l = null;
         let l2i = null;
@@ -101,19 +111,70 @@ function Question3() {
         let l3c = null;
         let l2p = null;
         let l3p = null;
+        switch((locationValue1.value.terms).length) {
+            case 3:
+                l1d = locationValue1.value.terms[0].value;
+                l1c = locationValue1.value.terms[1].value;
+                l1p = locationValue1.value.terms[2].value;
+                break;
+            case 4:
+                l1d = locationValue1.value.terms[1].value;
+                l1c = locationValue1.value.terms[2].value;
+                l1p = locationValue1.value.terms[3].value;
+                break;
+            case 5:
+                l1d = locationValue1.value.terms[2].value;
+                l1c = locationValue1.value.terms[3].value;
+                l1p = locationValue1.value.terms[4].value;
+                break;
+            default:
+                break;
+        }
         if(locationValue2 !== null) {
             l2l = locationValue2.label;
             l2i = locationValue2.value.place_id;
-            l2d = locationValue2.value.terms[2].value;
-            l2c = locationValue2.value.terms[3].value;
-            l2p = locationValue2.value.terms[4].value;
+            switch((locationValue2.value.terms).length) {
+                case 3:
+                    l2d = locationValue2.value.terms[0].value;
+                    l2c = locationValue2.value.terms[1].value;
+                    l2p = locationValue2.value.terms[2].value;
+                    break;
+                case 4:
+                    l2d = locationValue2.value.terms[1].value;
+                    l2c = locationValue2.value.terms[2].value;
+                    l2p = locationValue2.value.terms[3].value;
+                    break;
+                case 5:
+                    l2d = locationValue2.value.terms[2].value;
+                    l2c = locationValue2.value.terms[3].value;
+                    l2p = locationValue2.value.terms[4].value;
+                    break;
+                default:
+                    break;
+            }
         }
         if(locationValue3 !== null) {
             l3l = locationValue3.label;
             l3i = locationValue3.value.place_id;
-            l3d = locationValue3.value.terms[2].value;
-            l3c = locationValue3.value.terms[3].value;
-            l3p = locationValue3.value.terms[4].value;
+            switch((locationValue3.value.terms).length) {
+                case 3:
+                    l3d = locationValue3.value.terms[0].value;
+                    l3c = locationValue3.value.terms[1].value;
+                    l3p = locationValue3.value.terms[2].value;
+                    break;
+                case 4:
+                    l3d = locationValue3.value.terms[1].value;
+                    l3c = locationValue3.value.terms[2].value;
+                    l3p = locationValue3.value.terms[3].value;
+                    break;
+                case 5:
+                    l3d = locationValue3.value.terms[2].value;
+                    l3c = locationValue3.value.terms[3].value;
+                    l3p = locationValue3.value.terms[4].value;
+                    break;
+                default:
+                    break;
+            }
         }
         navigate("/confirmation", {state: {
             preferensi_jenis: location.state.preferensi_jenis,
@@ -127,9 +188,9 @@ function Question3() {
             tempat_1_id: locationValue1.value.place_id,
             tempat_2_id: l2i,
             tempat_3_id: l3i,
-            tempat_1_district: locationValue1.value.terms[2].value,
-            tempat_1_city: locationValue1.value.terms[3].value,
-            tempat_1_province: locationValue1.value.terms[4].value,
+            tempat_1_district: l1d,
+            tempat_1_city: l1c,
+            tempat_1_province: l1p,
             tempat_2_district: l2d,
             tempat_2_city: l2c,
             tempat_2_province: l2p,
@@ -141,26 +202,26 @@ function Question3() {
 
     return(
         <>
-        
-        <h1 className="defCentered">Halaman 3</h1>
-        
-        <br></br>
-        <form>
-            <table className="defTable">
-                <tbody>
-                    <tr>
-                        <td colSpan="2">
-                            <h2>Adakah tempat atau area tertentu yang anda ingin dekat dengan properti ini?</h2>
+
+        <div className="relative min-h-screen bg-cover bg-center" style={{ backgroundImage: "url('/image/background2.jpg')" }}>
+            <div className="flex items-center space-x-5 pt-5 pl-5">
+                <h3 className="text-4xl text-white font-semibold">CariProperti</h3>
+                <button onClick={goToHome} className="text-l text-white ml-3">Home</button>
+            </div>
+
+            <hr className="mt-5 mb-5 border-t-2 border-white" />
+            <div className="max-w-3xl mx-auto p-8 bg-black bg-opacity-60 shadow-md rounded-md border">
+
+        <h2 className="text-lg font-semibold text-center text-white"> Adakah tempat atau area tertentu yang anda ingin dekat dengan properti ini?</h2>
                             <h3><b>{customStatusMessage}</b></h3>
                             {/* <h3><b>{locationValue1 === null ? null : JSON.stringify(locationValue1)}</b></h3> */}
-                            <h3><b>{route12data === null ? null : (route12data.distance_value >= 10000 ? "Jarak antar tempat 1 dan 2 lebih dari 100 km! Mohon pilih lokasi lain" : "")}</b></h3>
+                            <h3><b>{route12data === null ? null : (route12data.distance_value >= 10000 ?  "Jarak antar tempat 1 dan 2 lebih dari 100 km! Mohon pilih lokasi lain" : "")}</b></h3>
                             <h3><b>{route23data === null ? null : (route23data.distance_value >= 10000 ? "Jarak antar tempat 2 dan 3 lebih dari 100 km! Mohon pilih lokasi lain" : "")}</b></h3>
                             <h3><b>{route13data === null ? null : (route13data.distance_value >= 10000 ? "Jarak antar tempat 1 dan 3 lebih dari 100 km! Mohon pilih lokasi lain" : "")}</b></h3>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><b>Tempat penting 1:</b></td>
-                        <td>
+                            
+                        <div className="mt-4">
+                        <label className="block font-semibold text-white"> Tempat penting 1:</label>
+                        
                             <GooglePlacesAutocomplete
                                 apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}
                                 debounce="1000"
@@ -176,11 +237,11 @@ function Question3() {
                                     onChange: setLocationValue1,
                                 }}
                             />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Tempat penting 2:</td>
-                        <td>
+                    </div>
+
+                    <div className="mt-4">
+                    <label className="block font-semibold text-white">Tempat penting 2:</label>
+                    
                             <GooglePlacesAutocomplete
                                 apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}
                                 debounce="1000"
@@ -196,11 +257,10 @@ function Question3() {
                                     onChange: setLocationValue2,
                                 }}
                             />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Tempat penting 3:</td>
-                        <td>
+                    </div>
+                    
+                    <div className="mt-4">
+                    <label className="block font-semibold text-white">Tempat penting 3:</label>
                             <GooglePlacesAutocomplete
                                 apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}
                                 debounce="1000"
@@ -216,19 +276,20 @@ function Question3() {
                                     onChange: setLocationValue3,
                                 }}
                             />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colSpan="2">
-                            <button className="defButton" onClick={goToConfirmation} disabled={false}>Lanjut</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </form>
-        <Outlet />
-        </>
-    );
-}
+                    </div>
+                    <div className="mt-6 text-center">
+        <button
+            className="bg-white hover:bg-gray-100 text-black font-semibold py-2 px-10 rounded-lg shadow-md"
+            onClick={goToConfirmation}
+        >
+            Lanjut
+        </button>
+        </div>
+    </div>
+    </div>
+
+    </>
+);
+};
 
 export default Question3;

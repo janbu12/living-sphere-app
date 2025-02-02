@@ -4,7 +4,7 @@ import { useLocation, Outlet, useNavigate } from "react-router-dom";
 
 function Question1() {
     const location = useLocation();
-    const [question1data, setQuestion1data] = useState({preferensi_jenis: "Hanya sewa", jangkauan_harga_min: 0, jangkauan_harga_max: 15000000, jumlah_orang: 1});
+    const [question1data, setQuestion1data] = useState({preferensi_jenis: "Hanya sewa", jangkauan_harga_min: 0, jangkauan_harga_max: 150000000000, jumlah_orang: 1});
 
     const navigate = useNavigate();
 
@@ -29,48 +29,114 @@ function Question1() {
         }})
     }
 
-    return(
-        <>
-        
-        <h1 className="defCentered">Halaman 1</h1>
-        
-        <br></br>
-        <form>
-            <table className="defTable">
-                <tbody>
-                    <tr>
-                        <td>Apakah anda ingin <b>menyewa</b> atau <b>membeli</b> properti?</td>
-                        <td colSpan="3"><select name="preferensi_jenis" className="defInput"
-                            value={question1data.preferensi_jenis} onChange={(e) => updateQuestion1data(e)}>
-                                <option value="Hanya sewa">Hanya sewa</option>
-                                <option value="Hanya beli">Hanya beli</option>
-                            </select></td>
-                    </tr>
-                    <tr>
-                        <td>Apa jangkauan harga anda?</td>
-                        <td>Rp. <input className="defInput" type="number" name="jangkauan_harga_min"
-                        value={question1data.jangkauan_harga_min} onChange={(e) => updateQuestion1data(e)} /></td>
-                        <td> - </td>
-                        <td>Rp. <input className="defInput" type="number" name="jangkauan_harga_max"
-                        value={question1data.jangkauan_harga_max} onChange={(e) => updateQuestion1data(e)} /> 
-                        {question1data.preferensi_jenis === "Hanya sewa" ? " / bulan" : " total"} </td>
-                    </tr>
-                    <tr>
-                        <td>Berapa orang yang akan memakai properti ini?</td>
-                        <td colSpan="3"><input className="defInput" type="number" name="jumlah_orang"
-                        value={question1data.jumlah_orang} onChange={(e) => updateQuestion1data(e)} /></td>
-                    </tr>
-                    <tr>
-                        <td colSpan="4">
-                            <button className="defButton" onClick={goToQuestion2} disabled={false}>Lanjut</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </form>
-        <Outlet />
-        </>
-    );
+    const goToHome = (e) => {
+      e.preventDefault();
+      navigate("/", {state: {
+      }})
+  }
+
+
+    return (
+        <div
+          className="relative min-h-screen bg-cover bg-center"
+          style={{ backgroundImage: "url('/image/background2.jpg')" }}
+        >
+          <div className="flex items-center space-x-5 pt-5 pl-5">
+            <h3 className="text-4xl text-white font-semibold">CariProperti</h3>
+            <button onClick={goToHome} className="text-l text-white ml-3">Home</button>
+          </div>
+      
+          <hr className="mt-5 mb-5 border-t-2 border-white " />
+          <div className="max-w-3xl mx-auto p-8 bg-black bg-opacity-60 shadow-md rounded-md border">
+            <form>
+              <div className="mb-4">
+                <label className="text-white block font-medium mb-1">
+                  Apakah anda ingin <b>menyewa</b> atau <b>membeli</b> properti?
+                </label>
+                <select
+                  name="preferensi_jenis"
+                  className="defInput w-full p-2 border rounded-md"
+                  value={question1data.preferensi_jenis}
+                  onChange={(e) => updateQuestion1data(e)}
+                >
+                  <option value="Hanya sewa">Hanya sewa</option>
+                  <option value="Hanya beli">Hanya beli</option>
+                </select>
+              </div>
+      
+              {/* Input Harga */}
+              <div className="mb-4 grid grid-cols-2 gap-2">
+                <label className="text-white col-span-2 block font-medium">
+                  Apa jangkauan harga anda?
+                </label>
+      
+                {/* Minimum Harga */}
+                <div className="flex flex-col">
+                  <label className="text-center text-white text-sm mb-1">Minimum</label>
+                  <div className="flex items-center">
+                    <span className="text-white mr-2">Rp.</span>
+                    <input
+                      className="defInput w-full p-2 border rounded-md"
+                      type="number"
+                      name="jangkauan_harga_min"
+                      value={question1data.jangkauan_harga_min}
+                      onChange={(e) => updateQuestion1data(e)}
+                    />
+                  </div>
+                </div>
+      
+                {/* Maksimum Harga */}
+                <div className="flex flex-col">
+                  <label className="text-center text-white text-sm mb-1">Maksimum</label>
+                  <div className="flex items-center gap-2">
+                    <span className="text-white">Rp.</span>
+                    <input
+                      className="defInput w-full p-2 border rounded-md"
+                      type="number"
+                      name="jangkauan_harga_max"
+                      value={question1data.jangkauan_harga_max}
+                      onChange={(e) => updateQuestion1data(e)}
+                    />
+                    <span className="text-white text-sm">
+                      {question1data.preferensi_jenis === "Hanya sewa"
+                        ? " / bulan"
+                        : " total"}
+                    </span>
+                  </div>
+                </div>
+              </div>
+      
+              {/* Jumlah Orang */}
+              <div className="mb-4">
+                <label className="text-white block font-medium mb-1">
+                  Berapa orang yang akan memakai properti ini?
+                </label>
+                <input
+                  className="defInput w-full p-2 border rounded-md"
+                  type="number"
+                  name="jumlah_orang"
+                  value={question1data.jumlah_orang}
+                  onChange={(e) => updateQuestion1data(e)}
+                />
+              </div>
+      
+              {/* Tombol Lanjut */}
+              <div className="text-center mt-6">
+                <button
+                  className="bg-white hover:bg-gray-100 text-black font-semibold py-2 px-10 rounded-lg shadow-md"
+                  onClick={goToQuestion2}
+                  disabled={false}
+                >
+                  Lanjut
+                </button>
+              </div>
+            </form>
+            <Outlet />
+          </div>
+        </div>
+      );
+      
 }
 
-export default Question1;
+
+export default Question1;

@@ -17,7 +17,6 @@ import NoPropertiesFound from "./pages/nopropertiesfound"
 export default function App() {
   return (
     <Router>
-      <Layout>
         <Routes>
         <Route path="/">
           <Route index element={ <Index />} />
@@ -32,7 +31,6 @@ export default function App() {
         </Route>
           <Route path="*" element={<Error />} />
         </Routes>
-      </Layout>
     </Router>
   );
 }
