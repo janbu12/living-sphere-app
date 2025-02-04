@@ -2,6 +2,8 @@ import { React, useState, useEffect } from "react";
 import { useLocation, Outlet, useNavigate } from "react-router-dom";
 
 function NoPropertiesFound() {
+    const navigate = useNavigate();
+    
     const goToHome = (e) => {
         e.preventDefault();
         navigate("/", {state: {

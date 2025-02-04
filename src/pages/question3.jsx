@@ -80,19 +80,22 @@ function Question3() {
             return;
         }
         if (route12data !== null) {
-            if(route12data.distance_value >= 10000) {
+            console.log(route12data);
+            if(route12data.distance_value >= 100000) {
                 setCustomStatusMessage("Jangan memilih tempat-tempat yang terlalu jauh!");
                 return;
             }
         }
         if (route23data !== null) {
-            if(route23data.distance_value >= 10000) {
+            console.log(route23data);
+            if(route23data.distance_value >= 100000) {
                 setCustomStatusMessage("Jangan memilih tempat-tempat yang terlalu jauh!");
                 return;
             }
         }
         if (route13data !== null) {
-            if(route13data.distance_value >= 10000) {
+            console.log(route13data);
+            if(route13data.distance_value >= 100000) {
                 setCustomStatusMessage("Jangan memilih tempat-tempat yang terlalu jauh!");
                 return;
             }
@@ -213,11 +216,11 @@ function Question3() {
             <div className="max-w-3xl mx-auto p-8 bg-black bg-opacity-60 shadow-md rounded-md border">
 
         <h2 className="text-lg font-semibold text-center text-white"> Adakah tempat atau area tertentu yang anda ingin dekat dengan properti ini?</h2>
-                            <h3><b>{customStatusMessage}</b></h3>
+                            <h3 className="text-red-500"><b>{customStatusMessage}</b></h3>
                             {/* <h3><b>{locationValue1 === null ? null : JSON.stringify(locationValue1)}</b></h3> */}
-                            <h3><b>{route12data === null ? null : (route12data.distance_value >= 10000 ?  "Jarak antar tempat 1 dan 2 lebih dari 100 km! Mohon pilih lokasi lain" : "")}</b></h3>
-                            <h3><b>{route23data === null ? null : (route23data.distance_value >= 10000 ? "Jarak antar tempat 2 dan 3 lebih dari 100 km! Mohon pilih lokasi lain" : "")}</b></h3>
-                            <h3><b>{route13data === null ? null : (route13data.distance_value >= 10000 ? "Jarak antar tempat 1 dan 3 lebih dari 100 km! Mohon pilih lokasi lain" : "")}</b></h3>
+                            <h3 className="text-red-500"><b>{route12data === null ? null : (route12data.distance_value >= 100000 ?  "Jarak antar tempat 1 dan 2 lebih dari 100 km! Mohon pilih lokasi lain" : "")}</b></h3>
+                            <h3 className="text-red-500"><b>{route23data === null ? null : (route23data.distance_value >= 100000 ? "Jarak antar tempat 2 dan 3 lebih dari 100 km! Mohon pilih lokasi lain" : "")}</b></h3>
+                            <h3 className="text-red-500"><b>{route13data === null ? null : (route13data.distance_value >= 100000 ? "Jarak antar tempat 1 dan 3 lebih dari 100 km! Mohon pilih lokasi lain" : "")}</b></h3>
                             
                         <div className="mt-4">
                         <label className="block font-semibold text-white"> Tempat penting 1:</label>
