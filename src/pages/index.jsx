@@ -2,6 +2,7 @@ import { React } from "react";
 // import { useLocation, Outlet, useNavigate } from "react-router-dom";
 import { Outlet, useNavigate } from "react-router-dom";
 import "./Basic.css";
+import Navbar from "../components/Navbar";
 function Index() {
 
     // const location = useLocation();
@@ -14,22 +15,11 @@ function Index() {
         navigate("/question1", {state: {}})
     }
 
-    const goToHome = (e) => {
-        e.preventDefault();
-        navigate("/", {state: {
-        }})
-    }
-
     return (
         <>
         <div className="relative min-h-screen bg-cover bg-center" style={{ backgroundImage: "url('/image/background.jpg')" }}>
-            <div className="flex items-center space-x-5 pt-5 pl-5">
-                <h3 className="text-4xl text-white font-semibold">CariProperti</h3>
-                <button onClick={goToHome} className="text-l text-white ml-3">Home</button>
-            </div>
-            
-            <hr className="mt-5 mb-5 border-t-2 border-white " />
-</div>
+            <Navbar/>
+        </div>
 
     <div className="absolute left-0 top-1/2 transform -translate-y-1/2 px-8 text-white">
         <h1 className="text-3xl font-bold uppercase tracking-wide text-white font-[Poppins]">Selamat datang di CariProperti</h1>
@@ -40,7 +30,7 @@ function Index() {
         <h2 className="text-l font-semibold">Kami dapat merekomendasikan properti-properti yang tersedia</h2>
         <h2 className="text-l font-semibold">Cukup isi kuesioner ini saja!</h2>
     
-        <button className="bg-white text-black py-4 px-8 rounded-lg shadow-md hover:bg-gray-800 transition text-2xl mt-4" onClick={goToQuestion1}>Mulai Kuesioner</button>
+        <button className="bg-white text-black py-4 px-8 rounded-lg shadow-md hover:bg-gray-800 hover:text-white transition text-2xl mt-4" onClick={goToQuestion1}>Mulai Kuesioner</button>
     
             <Outlet />
             </div>

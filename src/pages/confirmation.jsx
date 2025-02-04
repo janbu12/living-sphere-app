@@ -3,6 +3,7 @@ import { React, useState, useEffect } from "react";
 import { useLocation, Outlet, useNavigate } from "react-router-dom";
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 import { APIProvider, Map } from '@vis.gl/react-google-maps';
+import Navbar from "../components/Navbar";
 
 function Confirmation() {
     const location = useLocation();
@@ -15,12 +16,6 @@ function Confirmation() {
     useEffect(() => {
         // nextButtonDisabled = locationValue1 === null ? true : false;
     });
-
-    const goToHome = (e) => {
-        e.preventDefault();
-        navigate("/", {state: {
-        }})
-    }
 
     const cleanseName = (c_name) => {
         const dotproperty_translation = [
@@ -122,13 +117,8 @@ function Confirmation() {
     return(
     <>
 <div className="relative min-h-screen bg-cover bg-center" style={{ backgroundImage: "url('/image/background2.jpg')" }}>
-            <div className="flex items-center space-x-5 pt-5 pl-5">
-                <h3 className="text-4xl text-white font-semibold">CariProperti</h3>
-                <button onClick={goToHome} className="text-l text-white ml-3">Home</button>
-            </div>
-            
-            <hr className="mt-5 mb-5 border-t-2 border-white" />
-            <div className="max-w-3xl mx-auto p-5 bg-black bg-opacity-60 shadow-md rounded-md border">
+            <Navbar/>
+            <div className="max-w-3xl mx-auto p-5 bg-black bg-opacity-60 shadow-md rounded-md border mt-8">
             <h1 className="text-white text-center text-xl font-bold mb-4">Konfirmasi parameter</h1>
     {/* <tr><td colSpan="2"><h2>Adakah tempat atau area tertentu yang anda ingin dekat dengan properti ini?</h2></td></tr> */}
         
@@ -185,9 +175,12 @@ function Confirmation() {
             </table>
             
             <div className="text-center mt-6">
-            <button className="bg-white hover:bg-gray-100 text-black font-semibold py-2 px-6 rounded-lg shadow-md" onClick={goToResults}>
-    Dapatkan rekomendasi properti
-</button>
+            <button 
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 rounded-lg transition-all duration-200"
+                onClick={goToResults}
+            >
+                Dapatkan rekomendasi properti
+            </button>
 
 </div>
             </div>

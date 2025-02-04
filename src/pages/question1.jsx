@@ -1,6 +1,7 @@
 // import { React, useEffect } from "react";
 import { React, useState, useEffect } from "react";
 import { useLocation, Outlet, useNavigate } from "react-router-dom";
+import Navbar from "../components/Navbar";
 
 function Question1() {
     const location = useLocation();
@@ -36,105 +37,103 @@ function Question1() {
   }
 
 
-    return (
-        <div
-          className="relative min-h-screen bg-cover bg-center"
-          style={{ backgroundImage: "url('/image/background2.jpg')" }}
-        >
-          <div className="flex items-center space-x-5 pt-5 pl-5">
-            <h3 className="text-4xl text-white font-semibold">CariProperti</h3>
-            <button onClick={goToHome} className="text-l text-white ml-3">Home</button>
-          </div>
-      
-          <hr className="mt-5 mb-5 border-t-2 border-white " />
-          <div className="max-w-3xl mx-auto p-8 bg-black bg-opacity-60 shadow-md rounded-md border">
-            <form>
-              <div className="mb-4">
-                <label className="text-white block font-medium mb-1">
-                  Apakah anda ingin <b>menyewa</b> atau <b>membeli</b> properti?
-                </label>
-                <select
-                  name="preferensi_jenis"
-                  className="defInput w-full p-2 border rounded-md"
-                  value={question1data.preferensi_jenis}
-                  onChange={(e) => updateQuestion1data(e)}
-                >
-                  <option value="Hanya sewa">Hanya sewa</option>
-                  <option value="Hanya beli">Hanya beli</option>
-                </select>
-              </div>
-      
-              {/* Input Harga */}
-              <div className="mb-4 grid grid-cols-2 gap-2">
-                <label className="text-white col-span-2 block font-medium">
-                  Apa jangkauan harga anda?
-                </label>
-      
+  return (
+    <div className="relative min-h-screen bg-cover bg-center" style={{ backgroundImage: "url('/image/background2.jpg')" }}>
+      <Navbar />
+      <div className="flex w-full justify-center mt-8">
+        <div className="max-w-max w-full p-8 bg-black bg-opacity-70 rounded-lg shadow-lg border">
+          <form>
+            {/* Pertanyaan Jenis Properti */}
+            <div className="mb-6">
+              <label className="text-white block font-semibold mb-2">
+                Apakah Anda ingin <b>menyewa</b> atau <b>membeli</b> properti?
+              </label>
+              <select
+                name="preferensi_jenis"
+                className="w-full p-3 bg-white text-slate-900 border border-gray-700 rounded-lg focus:outline-none focus:border-blue-500"
+                value={question1data.preferensi_jenis}
+                onChange={(e) => updateQuestion1data(e)}
+              >
+                <option value="Hanya sewa">Hanya sewa</option>
+                <option value="Hanya beli">Hanya beli</option>
+              </select>
+            </div>
+    
+            {/* Input Harga */}
+            <div className="mb-6">
+              <label className="text-white block font-semibold mb-2">
+                Apa jangkauan harga Anda?
+              </label>
+              <div className="flex gap-4">
                 {/* Minimum Harga */}
-                <div className="flex flex-col">
-                  <label className="text-center text-white text-sm mb-1">Minimum</label>
-                  <div className="flex items-center">
-                    <span className="text-white mr-2">Rp.</span>
+                <div className="flex-1">
+                  <label className="text-white text-sm mb-1 block text-center">Minimum</label>
+                  <div className="flex items-center bg-white rounded-lg overflow-hidden">
+                    <span className="text-slate-900 px-2">Rp.</span>
                     <input
-                      className="defInput w-full p-2 border rounded-md"
+                      className="w-full p-3 bg-transparent text-slate-900 focus:outline-none"
                       type="number"
                       name="jangkauan_harga_min"
+                      min={0}
                       value={question1data.jangkauan_harga_min}
                       onChange={(e) => updateQuestion1data(e)}
                     />
                   </div>
                 </div>
-      
+    
                 {/* Maksimum Harga */}
-                <div className="flex flex-col">
-                  <label className="text-center text-white text-sm mb-1">Maksimum</label>
-                  <div className="flex items-center gap-2">
-                    <span className="text-white">Rp.</span>
+                <div className="flex-1">
+                  <label className="text-white text-sm mb-1 block text-center">Maksimum</label>
+                  <div className="flex items-center bg-white rounded-lg overflow-hidden">
+                    <span className="text-slate-900 px-2">Rp.</span>
                     <input
-                      className="defInput w-full p-2 border rounded-md"
+                      className="w-full p-3 bg-transparent text-slate-900 focus:outline-none"
                       type="number"
                       name="jangkauan_harga_max"
                       value={question1data.jangkauan_harga_max}
+                      min={0}
                       onChange={(e) => updateQuestion1data(e)}
                     />
-                    <span className="text-white text-sm">
-                      {question1data.preferensi_jenis === "Hanya sewa"
-                        ? " / bulan"
-                        : " total"}
+                    <span className="text-slate-900 px-2 text-sm">
+                      {question1data.preferensi_jenis === "Hanya sewa" ? "/ bulan" : " total"}
                     </span>
                   </div>
                 </div>
               </div>
-      
-              {/* Jumlah Orang */}
-              <div className="mb-4">
-                <label className="text-white block font-medium mb-1">
-                  Berapa orang yang akan memakai properti ini?
-                </label>
+            </div>
+    
+            {/* Jumlah Orang */}
+            <div className="mb-6">
+              <label className="text-white block font-semibold mb-2">
+                Berapa orang yang akan memakai properti ini?
+              </label>
+              <div className="flex items-center bg-white rounded-lg overflow-hidden">
                 <input
-                  className="defInput w-full p-2 border rounded-md"
+                  className="w-full p-3 bg-transparent text-slate-900 focus:outline-none"
                   type="number"
                   name="jumlah_orang"
+                  min={0}
                   value={question1data.jumlah_orang}
                   onChange={(e) => updateQuestion1data(e)}
                 />
               </div>
-      
-              {/* Tombol Lanjut */}
-              <div className="text-center mt-6">
-                <button
-                  className="bg-white hover:bg-gray-100 text-black font-semibold py-2 px-10 rounded-lg shadow-md"
-                  onClick={goToQuestion2}
-                  disabled={false}
-                >
-                  Lanjut
-                </button>
-              </div>
-            </form>
-            <Outlet />
-          </div>
+            </div>
+    
+            {/* Tombol Lanjut */}
+            <div className="text-center">
+              <button
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 rounded-lg transition-all duration-200"
+                onClick={goToQuestion2}
+              >
+                Lanjut
+              </button>
+            </div>
+          </form>
         </div>
-      );
+
+      </div>
+    </div>
+  );
       
 }
 

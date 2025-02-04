@@ -2,15 +2,19 @@ import { React, useState, useEffect } from "react";
 import { useLocation, Outlet, useNavigate } from "react-router-dom";
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 import { APIProvider, Map } from '@vis.gl/react-google-maps';
+import Loading from "../components/Loading";
+import Navbar from "../components/Navbar";
 
 function Results() {
     const location = useLocation();
+    const [isLoading, setIsLoading] = useState(true);
     const [apiData, setApiData] = useState([{fasilities: ["1", "2"], images: ["ex.png"], id: "ex", title: "Loading...", location: "", price: "", detail_price: ""}]);
     // const [question3data, setQuestion3data] = useState({lat_Lokasi_1: 0, lon_lokasi_1: 0, lat_Lokasi_2: 0, lon_lokasi_2: 0, lat_Lokasi_3: 0, lon_lokasi_3: 0});
 
     const navigate = useNavigate();
 
     useEffect(() => {
+        console.log(isLoading);
         const billing_type = location.state.preferensi_jenis === "Hanya beli" ? "beli" : "sewa";
         const location1_final_string = location.state.tempat_1_province + "/" + location.state.tempat_1_city;
         const location2_final_string = location.state.tempat_2_city === null ? null : location.state.tempat_2_province + "/" + location.state.tempat_2_city + "/" + location.state.tempat_2_district;
@@ -32,14 +36,13 @@ function Results() {
         }
         fetch(process.env.REACT_APP_VITE_API_URL + `/properties/recommendations`, payload)
         .then(res => res.json())
-        .then(jsondata => {setApiData(jsondata)});
+        .then(jsondata => {
+            setApiData(jsondata)
+            setIsLoading(false);
+            console.log(isLoading);
+        });
     });
 
-    const goToHome = (e) => {
-        e.preventDefault();
-        navigate("/", {state: {
-        }})
-    }
 
     if(Object.hasOwn(apiData, 'message')) {
         if(apiData.message === "No properties found matching your criteria.") {
@@ -48,43 +51,59 @@ function Results() {
     }
 
     else {
-        return(
-        <>
-    
-    <div className="relative min-h-screen bg-cover bg-center" style={{ backgroundImage: "url('/image/background2.jpg')" }}>
-    <div className="flex items-center space-x-5 pt-5 pl-5">
-    <h3 className="text-4xl text-white font-semibold">CariProperti</h3>
-    <button onClick={goToHome} className="text-l text-white ml-3">Home</button>
-    </div>
-
-    <hr className="mt-5 mb-5 border-t-2 border-white " />
-    <div className="container mx-auto p-5">
-    <h1 className="text-center text-2xl font-bold mb-5 text-white">Rekomendasi Properti</h1>
-    
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
-        {apiData.map((data) => (
-        <div key={data.id} className="bg-white border rounded-lg shadow-md overflow-hidden">
-            <img src={data.images[0]} alt={data.title} className="w-full h-48 object-cover" />
-            <div className="p-4">
-            <h3 className="mt-2 font-semibold text-lg text-blue-500"><u>
-                <a href={`https://www.dotproperty.id/en/ads/${data.id}`} target="_blank" rel="noopener noreferrer">
-                {data.title}
-                </a>
-            </u></h3>
-            <p className="text-gray-600 text-sm mt-1">{data.location}</p>
-            <p className="text-green-500 font-bold mt-2">{data.price}</p>
-            <p className="text-gray-500 text-sm">{data.detail_price}</p>
-            <p className="text-gray-600 text-sm mt-1">{data.fasilities.join(", ")}</p>
-            </div>
-        </div>
-        ))}
-    </div>
-    </div>
-    <Outlet />
-    </div>
-
-        </>
-    );
+        return (
+            <>
+                {isLoading ? (
+                    <Loading />
+                ) : (
+                    <div className="relative min-h-screen bg-cover bg-center" style={{ backgroundImage: "url('/image/background2.jpg')" }}>
+                        <Navbar />
+                        <div className="container mx-auto px-6 py-10">
+                            <h1 className="text-center text-3xl font-extrabold text-white mb-8">Rekomendasi Properti</h1>
+        
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                                {apiData.map((data) => (
+                                    <a 
+                                        key={data.id} 
+                                        href={`https://www.dotproperty.id/en/ads/${data.id}`}
+                                        target="_blank"
+                                        className="bg-white rounded-2xl shadow-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-2xl"
+                                    >
+                                        <img 
+                                            src={data.images[0]} 
+                                            alt={data.title} 
+                                            className="w-full h-56 object-cover"
+                                        />
+                                        <div className="p-6">
+                                            <h3 className="text-xl font-semibold text-blue-600 hover:text-blue-800 transition-colors">
+                                                <a href={`https://www.dotproperty.id/en/ads/${data.id}`} target="_blank" rel="noopener noreferrer">
+                                                    {data.title}
+                                                </a>
+                                            </h3>
+                                            <p className="text-gray-500 text-sm mt-1">{data.location}</p>
+                                            <p className="text-green-600 font-bold text-lg mt-2">{data.price}</p>
+                                            <p className="text-gray-400 text-sm">{data.detail_price}</p>
+                                            <div className="mt-4 flex flex-wrap gap-2">
+                                                {data.fasilities.map(facility => (
+                                                    <span 
+                                                        key={facility} 
+                                                        className="bg-blue-100 text-blue-700 px-3 py-1 text-xs font-semibold rounded-full"
+                                                    >
+                                                        {facility}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </a>
+                                ))}
+                            </div>
+                        </div>
+                        <Outlet />
+                    </div>
+                )}
+            </>
+        );
+        
     }
 };
 

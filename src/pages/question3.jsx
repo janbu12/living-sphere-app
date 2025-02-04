@@ -4,6 +4,7 @@ import { useLocation, Outlet, useNavigate } from "react-router-dom";
 import { Map, Marker, GoogleApiWrapper } from "google-maps-react";
 import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
 import { APIProvider } from '@vis.gl/react-google-maps';
+import Navbar from "../components/Navbar";
 
 function Question3() {
     const location = useLocation();
@@ -25,12 +26,6 @@ function Question3() {
     const [route13data, setRoute13data] = useState(null);
 
     const navigate = useNavigate();
-
-    const goToHome = (e) => {
-        e.preventDefault();
-        navigate("/", {state: {
-        }})
-    }
 
     useEffect(() => {
         setCustomStatusMessage("");
@@ -207,20 +202,18 @@ function Question3() {
         <>
 
         <div className="relative min-h-screen bg-cover bg-center" style={{ backgroundImage: "url('/image/background2.jpg')" }}>
-            <div className="flex items-center space-x-5 pt-5 pl-5">
-                <h3 className="text-4xl text-white font-semibold">CariProperti</h3>
-                <button onClick={goToHome} className="text-l text-white ml-3">Home</button>
-            </div>
+            <Navbar/>
 
-            <hr className="mt-5 mb-5 border-t-2 border-white" />
-            <div className="max-w-3xl mx-auto p-8 bg-black bg-opacity-60 shadow-md rounded-md border">
+            <div className="max-w-3xl mx-auto p-8 bg-black bg-opacity-60 shadow-md rounded-md border mt-8">
 
         <h2 className="text-lg font-semibold text-center text-white"> Adakah tempat atau area tertentu yang anda ingin dekat dengan properti ini?</h2>
-                            <h3 className="text-red-500"><b>{customStatusMessage}</b></h3>
+                        <div className="font-medium mt-4">
+                            <h3 className="text-red-500">{customStatusMessage}</h3>
                             {/* <h3><b>{locationValue1 === null ? null : JSON.stringify(locationValue1)}</b></h3> */}
-                            <h3 className="text-red-500"><b>{route12data === null ? null : (route12data.distance_value >= 100000 ?  "Jarak antar tempat 1 dan 2 lebih dari 100 km! Mohon pilih lokasi lain" : "")}</b></h3>
-                            <h3 className="text-red-500"><b>{route23data === null ? null : (route23data.distance_value >= 100000 ? "Jarak antar tempat 2 dan 3 lebih dari 100 km! Mohon pilih lokasi lain" : "")}</b></h3>
-                            <h3 className="text-red-500"><b>{route13data === null ? null : (route13data.distance_value >= 100000 ? "Jarak antar tempat 1 dan 3 lebih dari 100 km! Mohon pilih lokasi lain" : "")}</b></h3>
+                            <h3 className="text-red-500">{route12data === null ? null : (route12data.distance_value >= 100000 ?  "Jarak antar tempat 1 dan 2 lebih dari 100 km! Mohon pilih lokasi lain" : "")}</h3>
+                            <h3 className="text-red-500">{route23data === null ? null : (route23data.distance_value >= 100000 ? "Jarak antar tempat 2 dan 3 lebih dari 100 km! Mohon pilih lokasi lain" : "")}</h3>
+                            <h3 className="text-red-500">{route13data === null ? null : (route13data.distance_value >= 100000 ? "Jarak antar tempat 1 dan 3 lebih dari 100 km! Mohon pilih lokasi lain" : "")}</h3>
+                        </div>
                             
                         <div className="mt-4">
                         <label className="block font-semibold text-white"> Tempat penting 1:</label>
@@ -280,13 +273,13 @@ function Question3() {
                                 }}
                             />
                     </div>
-                    <div className="mt-6 text-center">
-        <button
-            className="bg-white hover:bg-gray-100 text-black font-semibold py-2 px-10 rounded-lg shadow-md"
-            onClick={goToConfirmation}
-        >
-            Lanjut
-        </button>
+                <div className="mt-6 text-center">
+            <button
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 rounded-lg transition-all duration-200"
+                onClick={goToConfirmation}
+            >
+                Lanjut
+            </button>
         </div>
     </div>
     </div>
