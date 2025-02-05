@@ -275,7 +275,7 @@ function Question3() {
                     </div>
                 <div className="mt-6 text-center">
             <button
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 rounded-lg transition-all duration-200"
+                className="w-full bg-blue-600 hover:bg-blue-800 text-white font-medium py-3 rounded-lg transition-all duration-[250ms]"
                 onClick={goToConfirmation}
             >
                 Lanjut

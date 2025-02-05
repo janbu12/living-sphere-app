@@ -176,7 +176,7 @@ function Confirmation() {
             
             <div className="text-center mt-6">
             <button 
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 rounded-lg transition-all duration-200"
+                className="w-full bg-blue-600 hover:bg-blue-800 text-white font-medium py-3 rounded-lg transition-all duration-[250ms]"
                 onClick={goToResults}
             >
                 Dapatkan rekomendasi properti
